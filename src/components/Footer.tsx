@@ -28,7 +28,7 @@ Please provide wholesale pricing and bulk order details.
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-               <img src="/src/assets/logo.png" alt="Jersey Fitch" className="h-[60px] w-auto self-center" />
+               <img src="/public/logo.png" alt="Jersey Fitch" className="h-[60px] w-auto self-center" />
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed">
               Your one-stop destination for premium football, cricket, and custom jerseys.
