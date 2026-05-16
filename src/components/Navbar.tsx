@@ -28,7 +28,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 group">
-            <img src="/public/favicon.png" alt="Jersey Fitch" className="h-[60px] w-auto self-center" />
+            <img src="/logo.png" alt="Jersey Fitch" className="h-[60px] w-auto self-center" />
             {/* <span className="text-gray-900 font-bold text-xl tracking-tight">
               JERSEY <span className="text-[#ff7900]">FITCH</span>
             </span> */}
