@@ -4,7 +4,7 @@ export const WHATSAPP_NUMBER = '919961050521';
 /** Shown on Contact + Privacy Policy — keep in sync */
 export const BUSINESS_NAME = 'Jersey Fitch';
 export const CONTACT_EMAIL = 'jerseryfittch@gmail.com';
-export const CONTACT_ADDRESS = 'Malappuram, Kerala, India';
+export const CONTACT_ADDRESS = ' Kerala, India';
 
 /** Instagram — profile link */
 export const INSTAGRAM_HANDLE = 'jerseyfitch';
