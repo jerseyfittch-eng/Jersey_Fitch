@@ -1,0 +1,5 @@
+# Jersey Fitch — search engines (site uses client-side hash routing; crawl main URL and execute JS).
+User-agent: *
+Allow: /
+
+Sitemap: https://jerseyfitch.com/sitemap.xml
