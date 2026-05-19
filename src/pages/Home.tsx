@@ -36,41 +36,73 @@ const features = [
 ];
 
 const heroSlides = [
-  {
-    id: 1,
-    badge: 'PREMIUM QUALITY',
-    title: ['Player Version', '& Fan Version'],
-    description: 'Premium quality fabric jerseys with exact player replicas and high-quality fan versions. No low-quality prints - only heat pressed quality. FREE shipping nationwide!',
-    image: 'https://images.pexels.com/photos/2834917/pexels-photo-2834917.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    stats: [
-      { value: '100%', label: 'Premium Quality' },
-      { value: 'FREE', label: 'Shipping All Over India' },
+//   {
+//     id: 1,
+//     badge: 'PREMIUM QUALITY',
+//     title: ['Player Version', '& Fan Version'],
+//     description: 'Premium quality fabric jerseys with exact player replicas and high-quality fan versions. No low-quality prints - only heat pressed quality. FREE shipping nationwide!',
+//     image: 'https://images.pexels.com/photos/2834917/pexels-photo-2834917.jpeg?auto=compress&cs=tinysrgb&w=1600',
+//     stats: [
+//       { value: '100%', label: 'Premium Quality' },
+//       { value: 'FREE', label: 'Shipping All Over India' },
       
-    ],
-  },
-  {
-    id: 2,
-    badge: 'INTERNATIONAL & CLUBS',
-    title: ['Premium Jersey', 'Collection'],
-    description: 'International teams, top clubs, and retro classics - all in premium quality. Player version replicas and fan versions with superior heat pressed printing.',
-    image: 'https://images.pexels.com/photos/1661950/pexels-photo-1661950.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    stats: [
-      { value: 'FREE', label: 'Shipping & Delivery' },
-      { value: 'Player', label: 'Version Available' },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     badge: 'INTERNATIONAL & CLUBS',
+//     title: ['Premium Jersey', 'Collection'],
+//     description: 'International teams, top clubs, and retro classics - all in premium quality. Player version replicas and fan versions with superior heat pressed printing.',
+//     image: 'https://images.pexels.com/photos/1661950/pexels-photo-1661950.jpeg?auto=compress&cs=tinysrgb&w=1600',
+//     stats: [
+//       { value: 'FREE', label: 'Shipping & Delivery' },
+//       { value: 'Player', label: 'Version Available' },
       
-    ],
-  },
-  {
-    id: 3,
-    badge: 'FREE SHIPPING',
-    title: ['Order Today,', 'Ship Free'],
-    description: 'Get your premium jerseys delivered absolutely FREE anywhere in India. No hidden charges, no shipping fees - just the price you see!',
-    image: 'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    stats: [
-      { value: '100%', label: 'No Hidden Costs' },
-      { value: 'Easy', label: 'WhatsApp Ordering' },
-    ],
-  },
+//     ],
+//   },
+//   {
+//     id: 3,
+//     badge: 'FREE SHIPPING',
+//     title: ['Order Today,', 'Ship Free'],
+//     description: 'Get your premium jerseys delivered absolutely FREE anywhere in India. No hidden charges, no shipping fees - just the price you see!',
+//     image: 'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1600',
+//     stats: [
+//       { value: '100%', label: 'No Hidden Costs' },
+//       { value: 'Easy', label: 'WhatsApp Ordering' },
+//     ],
+//   },
+// ];
+
+{
+  id: 1,
+  badge: 'WORLD CUP 2026',
+  title: ['The Countdown', 'Has Started'],
+  description: 'Get match-ready for World Cup 2026 with premium player version and fan version jerseys. High-quality fabric, embroidered badges, and heat pressed details made for true football fans.',
+  stats: [
+    { value: '2026', label: 'World Cup Ready' },
+    { value: '100%', label: 'Premium Quality' },
+  ],
+},
+{
+  id: 2,
+  badge: 'NATIONS & CLUBS',
+  title: ['International', '& Club Jerseys'],
+  description: 'Support your favorite national teams and top clubs with premium-quality jerseys. From new season kits to iconic retro classics — crafted with detailed embroidery and superior finishing.',
+  stats: [
+    { value: 'Player', label: 'Version Available' },
+    { value: 'Retro', label: 'Classic Collection' },
+  ],
+},
+{
+  id: 3,
+  badge: 'FREE SHIPPING INDIA',
+  title: ['Order Your Kit', 'Before Kickoff'],
+  description: 'Shop your favorite football jerseys with FREE shipping all over India. Easy WhatsApp ordering, secure payment support, and premium quality guaranteed.',
+  stats: [
+    { value: 'FREE', label: 'Shipping Nationwide' },
+    { value: 'Easy', label: 'WhatsApp Orders' },
+  ],
+},
 ];
 
 function FeaturedSection() {
