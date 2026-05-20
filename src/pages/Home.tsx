@@ -15,13 +15,13 @@ const categories = [
     color: 'from-blue-900/80',
   },
   {
-    name: 'Clubs',
+    name: 'Club',
     desc: 'Top football club replicas with premium quality',
     image: '/club j.png',
     color: 'from-green-900/80',
   },
   {
-    name: 'Retros',
+    name: 'Retro',
     desc: 'Vintage and classic jersey designs',
     image: '/retro j.png',
     color: 'from-orange-900/80',
@@ -125,7 +125,7 @@ function CustomOrderForm({ isOpen, onClose }) {
     additionalNotes: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -133,7 +133,7 @@ function CustomOrderForm({ isOpen, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     const message = `*Custom Jersey Order Request* 🏆
