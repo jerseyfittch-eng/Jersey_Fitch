@@ -1,4 +1,4 @@
-import { ArrowRight, Zap, Shield, Truck, Star, X } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Truck, X } from 'lucide-react';
 import { navigate } from '../hooks/useRouter';
 import Link from '../components/Link';
 import { useProducts } from '../hooks/useProducts';
@@ -11,19 +11,19 @@ const categories = [
   {
     name: 'International',
     desc: 'Premium national team jerseys - player & fan versions',
-    image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/nation j.png',
     color: 'from-blue-900/80',
   },
   {
     name: 'Clubs',
     desc: 'Top football club replicas with premium quality',
-    image: 'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/club j.png',
     color: 'from-green-900/80',
   },
   {
     name: 'Retros',
     desc: 'Vintage and classic jersey designs',
-    image: 'https://images.pexels.com/photos/1661950/pexels-photo-1661950.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/retro j.png',
     color: 'from-orange-900/80',
   },
 ];
@@ -36,73 +36,36 @@ const features = [
 ];
 
 const heroSlides = [
-//   {
-//     id: 1,
-//     badge: 'PREMIUM QUALITY',
-//     title: ['Player Version', '& Fan Version'],
-//     description: 'Premium quality fabric jerseys with exact player replicas and high-quality fan versions. No low-quality prints - only heat pressed quality. FREE shipping nationwide!',
-//     image: 'https://images.pexels.com/photos/2834917/pexels-photo-2834917.jpeg?auto=compress&cs=tinysrgb&w=1600',
-//     stats: [
-//       { value: '100%', label: 'Premium Quality' },
-//       { value: 'FREE', label: 'Shipping All Over India' },
-      
-//     ],
-//   },
-//   {
-//     id: 2,
-//     badge: 'INTERNATIONAL & CLUBS',
-//     title: ['Premium Jersey', 'Collection'],
-//     description: 'International teams, top clubs, and retro classics - all in premium quality. Player version replicas and fan versions with superior heat pressed printing.',
-//     image: 'https://images.pexels.com/photos/1661950/pexels-photo-1661950.jpeg?auto=compress&cs=tinysrgb&w=1600',
-//     stats: [
-//       { value: 'FREE', label: 'Shipping & Delivery' },
-//       { value: 'Player', label: 'Version Available' },
-      
-//     ],
-//   },
-//   {
-//     id: 3,
-//     badge: 'FREE SHIPPING',
-//     title: ['Order Today,', 'Ship Free'],
-//     description: 'Get your premium jerseys delivered absolutely FREE anywhere in India. No hidden charges, no shipping fees - just the price you see!',
-//     image: 'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1600',
-//     stats: [
-//       { value: '100%', label: 'No Hidden Costs' },
-//       { value: 'Easy', label: 'WhatsApp Ordering' },
-//     ],
-//   },
-// ];
-
-{
-  id: 1,
-  badge: 'WORLD CUP 2026',
-  title: ['The Countdown', 'Has Started'],
-  description: 'Get match-ready for World Cup 2026 with premium player version and fan version jerseys. High-quality fabric, embroidered badges, and heat pressed details made for true football fans.',
-  stats: [
-    { value: '2026', label: 'World Cup Ready' },
-    { value: '100%', label: 'Premium Quality' },
-  ],
-},
-{
-  id: 2,
-  badge: 'NATIONS & CLUBS',
-  title: ['International', '& Club Jerseys'],
-  description: 'Support your favorite national teams and top clubs with premium-quality jerseys. From new season kits to iconic retro classics — crafted with detailed embroidery and superior finishing.',
-  stats: [
-    { value: 'Player', label: 'Version Available' },
-    { value: 'Retro', label: 'Classic Collection' },
-  ],
-},
-{
-  id: 3,
-  badge: 'FREE SHIPPING INDIA',
-  title: ['Order Your Kit', 'Before Kickoff'],
-  description: 'Shop your favorite football jerseys with FREE shipping all over India. Easy WhatsApp ordering, secure payment support, and premium quality guaranteed.',
-  stats: [
-    { value: 'FREE', label: 'Shipping Nationwide' },
-    { value: 'Easy', label: 'WhatsApp Orders' },
-  ],
-},
+  {
+    id: 1,
+    badge: 'WORLD CUP 2026',
+    title: ['The Countdown', 'Has Started'],
+    description: 'Get match-ready for World Cup 2026 with premium player version and fan version jerseys. High-quality fabric, embroidered badges, and heat pressed details made for true football fans.',
+    stats: [
+      { value: '2026', label: 'World Cup Ready' },
+      { value: '100%', label: 'Premium Quality' },
+    ],
+  },
+  {
+    id: 2,
+    badge: 'NATIONS & CLUBS',
+    title: ['International', '& Club Jerseys'],
+    description: 'Support your favorite national teams and top clubs with premium-quality jerseys. From new season kits to iconic retro classics — crafted with detailed embroidery and superior finishing.',
+    stats: [
+      { value: 'Player', label: 'Version Available' },
+      { value: 'Retro', label: 'Classic Collection' },
+    ],
+  },
+  {
+    id: 3,
+    badge: 'FREE SHIPPING INDIA',
+    title: ['Order Your Kit', 'Before Kickoff'],
+    description: 'Shop your favorite football jerseys with FREE shipping all over India. Easy WhatsApp ordering, secure payment support, and premium quality guaranteed.',
+    stats: [
+      { value: 'FREE', label: 'Shipping Nationwide' },
+      { value: 'Easy', label: 'WhatsApp Orders' },
+    ],
+  },
 ];
 
 function FeaturedSection() {
@@ -376,19 +339,18 @@ Please provide wholesale pricing and bulk order details.
   return (
     <div className="min-h-screen bg-white">
       <section className="relative min-h-screen flex items-center justify-start overflow-hidden">
-        {heroSlides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/90 to-gray-950/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent" />
-          </div>
-        ))}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          poster="/nation j.png"
+        >
+          <source src="/hero vid.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/90 to-gray-950/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent" />
 
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-28">
           <div className="max-w-xl text-left">
