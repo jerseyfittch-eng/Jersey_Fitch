@@ -11,7 +11,7 @@ export default function ProductCard({ product }: Props) {
     new Set([product.image, ...(product.images ?? [])].filter((u): u is string => Boolean(u)))
   );
   const primarySrc = gallery[0] ?? product.image;
-  const hoverSrc = gallery[1];
+  const hoverSrc = gallery[2];
 
   return (
     <div
