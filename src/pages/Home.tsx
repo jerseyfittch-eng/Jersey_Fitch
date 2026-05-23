@@ -68,7 +68,30 @@ const heroSlides = [
   },
 ];
 
-function FeaturedSection() {
+function NewArrivalsSection() {
+  const { products, loading } = useProducts();
+  const newArrivals = products.filter(p => p.is_new_arrival).slice(0, 16);
+
+  if (loading) return null;
+
+  return (
+    <section className="pt-4 pb-10 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <p className="text-gray-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">World Cup</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">New Arrivals</h2>
+          </div>
+          <Link to="/shop" className="flex items-center gap-1.5 text-gray-600 hover:text-gray-700 font-medium text-xs sm:text-sm transition-colors">
+            Shop All <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <ProductCollectionCarousel products={newArrivals} />
+      </div>
+    </section>
+  );
+} 
+  function FeaturedSection() {
   const { products, loading } = useProducts();
   const featured = products.filter(p => p.is_featured).slice(0, 16);
 
@@ -90,29 +113,6 @@ function FeaturedSection() {
   );
 }
 
-function NewArrivalsSection() {
-  const { products, loading } = useProducts();
-  const newArrivals = products.filter(p => p.is_new_arrival).slice(0, 16);
-
-  if (loading) return null;
-
-  return (
-    <section className="pt-4 pb-10 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-6">
-          <div>
-            <p className="text-gray-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">Just Dropped</p>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">New Arrivals</h2>
-          </div>
-          <Link to="/shop" className="flex items-center gap-1.5 text-gray-600 hover:text-gray-700 font-medium text-xs sm:text-sm transition-colors">
-            Shop All <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-        <ProductCollectionCarousel products={newArrivals} />
-      </div>
-    </section>
-  );
-}
 
 function CustomOrderForm({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
