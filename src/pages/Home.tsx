@@ -431,10 +431,11 @@ Please provide wholesale pricing and bulk order details.
           ))}
         </div>
       </section>
-
+      
+      <NewArrivalsSection />
       <FeaturedSection />
 
-      <NewArrivalsSection />
+
 
       <section className="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap justify-center gap-6">
