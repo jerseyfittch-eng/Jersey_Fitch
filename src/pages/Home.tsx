@@ -39,18 +39,20 @@ const heroSlides = [
   {
     id: 1,
     badge: 'WORLD CUP 2026',
-    title: ['The Countdown', 'Has Started'],
-    description: 'Get match-ready for World Cup 2026 with premium player version and fan version jerseys. High-quality fabric, embroidered badges, and heat pressed details made for true football fans.',
+    title: ['Premium Football', 'Jerseys'],
+    description:
+      'Premium player and fan version jerseys inspired by World Cup 2026.',
     stats: [
-      { value: '2026', label: 'World Cup Ready' },
       { value: '100%', label: 'Premium Quality' },
+      { value: '2026', label: 'World Cup Edition' },
     ],
   },
   {
     id: 2,
-    badge: 'NATIONS & CLUBS',
-    title: ['International', '& Club Jerseys'],
-    description: 'Support your favorite national teams and top clubs with premium-quality jerseys. From new season kits to iconic retro classics — crafted with detailed embroidery and superior finishing.',
+    badge: 'CLUBS & NATIONAL TEAMS',
+    title: ['Latest Kits &', 'Retro Classics'],
+    description:
+      'Shop latest club kits, national team jerseys, and retro classics.',
     stats: [
       { value: 'Player', label: 'Version Available' },
       { value: 'Retro', label: 'Classic Collection' },
@@ -59,15 +61,15 @@ const heroSlides = [
   {
     id: 3,
     badge: 'FREE SHIPPING INDIA',
-    title: ['Order Your Kit', 'Before Kickoff'],
-    description: 'Shop your favorite football jerseys with FREE shipping all over India. Easy WhatsApp ordering, secure payment support, and premium quality guaranteed.',
+    title: ['Order Your', 'Favorite Jersey'],
+    description:
+      'Free shipping all over India with easy WhatsApp ordering.',
     stats: [
       { value: 'FREE', label: 'Shipping Nationwide' },
       { value: 'Easy', label: 'WhatsApp Orders' },
     ],
   },
 ];
-
 function NewArrivalsSection() {
   const { products, loading } = useProducts();
   const newArrivals = products.filter(p => p.is_new_arrival).slice(0, 16);
