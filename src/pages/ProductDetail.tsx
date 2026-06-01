@@ -344,6 +344,12 @@ export default function ProductDetail({ id }: Props) {
               </div>
             </div>
 
+               <div className="mb-4">
+                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-600 text-sm font-semibold border border-green-200">
+                 ✓ Free Shipping Across India
+                 </span>
+              </div>
+
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-gray-900 text-sm sm:text-base font-semibold">Select Size</span>

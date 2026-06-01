@@ -14,7 +14,7 @@ export function useProducts(category?: string, search?: string) {
       setLoading(true);
       setError(null);
 
-      let query = supabase.from('products').select('*').order('created_at', { ascending: !category || category === 'All' });
+      let query = supabase.from('products').select('*').order('created_at', { ascending: false });
 
       if (category && category !== 'All') {
         query = query.eq('category', category);
