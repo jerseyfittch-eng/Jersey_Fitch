@@ -346,7 +346,7 @@ export default function ProductDetail({ id }: Props) {
 
                <div className="mb-4">
                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-600 text-sm font-semibold border border-green-200">
-                 ✓ Free Shipping Across India
+                 ✓ Free Shipping
                  </span>
               </div>
 
