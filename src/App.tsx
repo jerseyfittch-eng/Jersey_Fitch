@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Analytics } from '@vercel/analytics/react';
+// import { Analytics } from '@vercel/analytics/react';
 import { useRouter } from './hooks/useRouter';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
@@ -63,7 +63,7 @@ export default function App() {
   return (
     <CartProvider>
       <Router />
-      <Analytics />
+      {/* <Analytics /> */}
     </CartProvider>
   );
 }
