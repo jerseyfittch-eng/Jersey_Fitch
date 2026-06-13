@@ -343,12 +343,11 @@ export default function ProductDetail({ id }: Props) {
                 )}
               </div>
             </div>
-
-               <div className="mb-4">
+             <div className="mb-4">
                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-600 text-sm font-semibold border border-green-200">
                  ✓ Free Shipping
                  </span>
-              </div>
+             </div>
 
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
