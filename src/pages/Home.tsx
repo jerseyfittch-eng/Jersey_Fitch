@@ -116,7 +116,7 @@ function NewArrivalsSection() {
 }
 
 
-function CustomOrderForm({ isOpen, onClose }) {
+function CustomOrderForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [formData, setFormData] = useState({
     quantity: '',
     teamName: '',
@@ -306,14 +306,6 @@ export default function Home() {
   }, []);
 
   
-  const goToPreviousSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-  };
-
-  const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  };
-
   const handleCustomOrderClick = () => {
     setIsCustomOrderOpen(true);
   };

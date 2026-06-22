@@ -63,7 +63,7 @@ export function useProduct(id: string) {
 
       if (!ignore) {
         if (err) setError(err.message);
-        else setProduct(data as Product);
+        else setProduct(data as unknown as Product);
         setLoading(false);
       }
     };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, X, Shirt } from 'lucide-react';
+import { ShoppingCart, Menu, X } from 'lucide-react';
 import Link from './Link';
 import { useCart } from '../context/CartContext';
 

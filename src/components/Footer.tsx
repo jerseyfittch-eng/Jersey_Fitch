@@ -1,4 +1,4 @@
-import { Shirt, Instagram, MessageCircle, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, MessageCircle, Facebook, Mail, Phone, MapPin } from 'lucide-react';
 import Link from './Link';
 import { WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_ADDRESS, formatWhatsAppNumberForDisplay, INSTAGRAM_URL, FACEBOOK_URL } from '../lib/config';
 

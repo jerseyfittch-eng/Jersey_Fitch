@@ -5,6 +5,7 @@ import Link from '../components/Link';
 import { useCart } from '../context/CartContext';
 import { WHATSAPP_NUMBER } from '../lib/config';
 import type { CartItem } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface CheckoutRegistration {
   fullName: string;
@@ -101,10 +102,12 @@ function buildWhatsAppMessage(items: CartItem[], total: number, reg: CheckoutReg
   return lines.join('\n');
 }
 
-function CartItemRow({ item }: { item: CartItem }) {
+function CartItemRow({ item, isOutOfStock }: { item: CartItem; isOutOfStock: boolean }) {
   const { updateQuantity, removeItem } = useCart();
   return (
-    <div className="flex gap-4 p-4 bg-white border border-gray-200 rounded-xl group hover:border-gray-300 transition-colors">
+    <div className={`flex gap-4 p-4 bg-white border rounded-xl group transition-colors ${
+      isOutOfStock ? 'border-red-200 bg-red-50/10' : 'border-gray-200 hover:border-gray-300'
+    }`}>
       <div
         className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer"
         onClick={() => navigate(`/product/${item.product_id}`)}
@@ -125,9 +128,16 @@ function CartItemRow({ item }: { item: CartItem }) {
             >
               {item.name}
             </h3>
-            <span className="inline-block text-xs text-gray-500 border border-gray-300 rounded px-2 py-0.5 mb-2">
-              Size: {item.size}
-            </span>
+            <div className="flex items-center gap-2 flex-wrap mb-2">
+              <span className="inline-block text-xs text-gray-500 border border-gray-300 rounded px-2 py-0.5">
+                Size: {item.size}
+              </span>
+              {isOutOfStock && (
+                <span className="inline-block text-xs font-bold text-red-600 bg-red-100 rounded px-2 py-0.5 border border-red-200 uppercase tracking-wide">
+                  Out of Stock
+                </span>
+              )}
+            </div>
           </div>
           <button
             onClick={() => removeItem(item.product_id, item.size)}
@@ -148,7 +158,8 @@ function CartItemRow({ item }: { item: CartItem }) {
             <span className="text-gray-900 font-semibold text-sm w-6 text-center">{item.quantity}</span>
             <button
               onClick={() => updateQuantity(item.product_id, item.size, item.quantity + 1)}
-              className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-600 hover:text-gray-900 transition-all"
+              disabled={isOutOfStock}
+              className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-600 hover:text-gray-900 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Plus className="w-3 h-3" />
             </button>
@@ -167,6 +178,27 @@ export default function Cart() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [reg, setReg] = useState<CheckoutRegistration>(emptyRegistration);
   const [formError, setFormError] = useState<string | null>(null);
+  const [outOfStockIds, setOutOfStockIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (items.length === 0) return;
+    const fetchStockStatus = async () => {
+      const ids = items.map(item => item.product_id);
+      const { data, error } = await supabase
+        .from('products')
+        .select('id, is_out_of_stock')
+        .in('id', ids);
+      if (data && !error) {
+        const oos = data
+          .filter((p: any) => p.is_out_of_stock)
+          .map((p: any) => p.id);
+        setOutOfStockIds(oos);
+      }
+    };
+    fetchStockStatus();
+  }, [items]);
+
+  const hasOutOfStock = items.some(item => outOfStockIds.includes(item.product_id));
 
   useEffect(() => {
     if (!checkoutOpen) return;
@@ -193,11 +225,16 @@ export default function Cart() {
   };
 
   const openCheckout = () => {
+    if (hasOutOfStock) return;
     setFormError(null);
     setCheckoutOpen(true);
   };
 
   const handleConfirmWhatsApp = () => {
+    if (hasOutOfStock) {
+      setFormError('Cannot checkout with out-of-stock items.');
+      return;
+    }
     const err = validateRegistration(reg);
     if (err) {
       setFormError(err);
@@ -251,7 +288,11 @@ export default function Cart() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 flex flex-col gap-3">
             {items.map(item => (
-              <CartItemRow key={`${item.product_id}-${item.size}`} item={item} />
+              <CartItemRow
+                key={`${item.product_id}-${item.size}`}
+                item={item}
+                isOutOfStock={outOfStockIds.includes(item.product_id)}
+              />
             ))}
 
             <Link
@@ -302,11 +343,22 @@ export default function Cart() {
               <button
                 type="button"
                 onClick={openCheckout}
-                className="mt-2 w-full py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 hover:shadow-lg hover:shadow-gray-900/30 hover:-translate-y-0.5"
+                disabled={hasOutOfStock}
+                className={`mt-2 w-full py-4 font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 ${
+                  hasOutOfStock
+                    ? 'bg-gray-200 text-gray-400 border border-gray-300 cursor-not-allowed'
+                    : 'bg-gray-900 hover:bg-gray-800 text-white hover:shadow-lg hover:shadow-gray-900/30 hover:-translate-y-0.5'
+                }`}
               >
                 <MessageCircle className="w-5 h-5" />
-                Proceed to payment
+                {hasOutOfStock ? 'Contains Out of Stock Items' : 'Proceed to payment'}
               </button>
+
+              {hasOutOfStock && (
+                <p className="mt-3 text-red-600 text-xs font-semibold text-center bg-red-50 border border-red-200 rounded-lg p-2">
+                  Please remove out-of-stock items from your cart before proceeding.
+                </p>
+              )}
 
               <p className="text-gray-600 text-xs text-center mt-3 leading-relaxed">
                 Opens a short registration form, then WhatsApp with your order and delivery details for UPI payment.

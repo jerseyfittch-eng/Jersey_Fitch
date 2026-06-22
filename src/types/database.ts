@@ -14,6 +14,7 @@ export interface Database {
           is_featured: boolean;
           is_new_arrival: boolean;
           is_published: boolean;
+          is_out_of_stock: boolean;
           created_at: string;
         };
         Insert: Omit<Database['public']['Tables']['products']['Row'], 'id' | 'created_at'> & {

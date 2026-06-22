@@ -1,4 +1,3 @@
-import { ShoppingCart } from 'lucide-react';
 import { navigate } from '../hooks/useRouter';
 import type { Product } from '../types';
 
@@ -41,7 +40,7 @@ export default function ProductCard({ product }: Props) {
           {product.name}
         </h3>
         <div className="mb-3 space-y-2">
-          <div className="flex items-baseline justify-start gap-2 w-full min-w-0">
+          <div className="flex items-baseline justify-start gap-2 w-full min-w-0 flex-wrap">
             <span className="text-gray-900 font-bold text-lg min-w-0">
               &#8377;{product.price.toLocaleString('en-IN')}
             </span>
@@ -50,12 +49,22 @@ export default function ProductCard({ product }: Props) {
                 &#8377;{product.crossed_out_price.toLocaleString('en-IN')}
               </span>
             )}
+            {product.is_out_of_stock && (
+              <span className="text-[10px] bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded border border-red-200 uppercase tracking-wide">
+                Out of Stock
+              </span>
+            )}
           </div>
           <button
             type="button"
-            className="w-full py-2 px-3 bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
+            disabled={product.is_out_of_stock}
+            className={`w-full py-2 px-3 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+              product.is_out_of_stock
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                : 'bg-gray-900 hover:bg-gray-800 text-white'
+            }`}
           >
-            Add to Cart
+            {product.is_out_of_stock ? 'Out of Stock' : 'Add to Cart'}
           </button>
         </div>
       </div>

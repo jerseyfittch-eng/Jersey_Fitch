@@ -185,7 +185,6 @@ export default function ProductDetail({ id }: Props) {
 
   const cartPayload = () => ({
     product_id: product.id,
-    product_code: product.product_code,
     name: product.name,
     price: product.price,
     size: selectedSize,
@@ -212,7 +211,7 @@ export default function ProductDetail({ id }: Props) {
     navigate('/cart');
   };
 
-  const outOfStock = product.stock_status === 'out_of_stock';
+  const outOfStock = !!product.is_out_of_stock;
   const qty = clampQuantity(quantity);
 
   const categoryColor: Record<string, string> = {
@@ -310,13 +309,8 @@ export default function ProductDetail({ id }: Props) {
                 <Tag className="w-3 h-3" />
                 {product.category}
               </span>
-              {product.stock_status === 'low_stock' && (
-                <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-yellow-900/50 text-yellow-400">
-                  Low Stock
-                </span>
-              )}
-              {product.stock_status === 'out_of_stock' && (
-                <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-gray-900/50 text-gray-400">
+              {product.is_out_of_stock && (
+                <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-red-100 text-red-700 border border-red-200">
                   Out of Stock
                 </span>
               )}
@@ -339,6 +333,11 @@ export default function ProductDetail({ id }: Props) {
                 {showCrossedPrice && (
                   <span className="text-[#666] text-sm sm:text-base line-through">
                     &#8377;{crossedOutPrice.toLocaleString('en-IN')}
+                  </span>
+                )}
+                {product.is_out_of_stock && (
+                  <span className="ml-2 text-sm font-bold text-red-600 bg-red-50 border border-red-200 rounded-lg px-2.5 py-1 uppercase tracking-wide">
+                    Out of Stock
                   </span>
                 )}
               </div>

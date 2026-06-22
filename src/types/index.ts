@@ -10,6 +10,7 @@ export interface Product {
   is_featured: boolean;
   is_new_arrival: boolean;
   is_published: boolean;
+  is_out_of_stock?: boolean;
   crossed_out_price?: number;
   created_at: string;
 }

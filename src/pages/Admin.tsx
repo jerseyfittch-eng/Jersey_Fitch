@@ -17,6 +17,7 @@ const emptyForm = {
   is_new_arrival: false,
   is_published: true,
   crossed_out_price: '',
+  is_out_of_stock: false,
 };
 
 function LoginForm({ onLogin }: { onLogin: () => void }) {
@@ -131,6 +132,7 @@ function ProductFormModal({
           is_new_arrival: initial.is_new_arrival,
           is_published: initial.is_published,
           crossed_out_price: initial.crossed_out_price !== undefined ? String(initial.crossed_out_price) : '',
+          is_out_of_stock: initial.is_out_of_stock || false,
         }
       : { ...emptyForm }
   );
@@ -350,6 +352,26 @@ function ProductFormModal({
             ))}
           </div>
 
+          <div className="border-t border-gray-200 pt-4 flex items-center justify-between">
+            <div>
+              <span className="text-gray-900 text-sm font-semibold block">Out of Stock Status</span>
+              <span className="text-gray-500 text-xs">Mark this product as out of stock to disable purchases.</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setForm(f => ({ ...f, is_out_of_stock: !f.is_out_of_stock }))}
+              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 ${
+                form.is_out_of_stock ? 'bg-red-600' : 'bg-gray-200'
+              }`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  form.is_out_of_stock ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
+            </button>
+          </div>
+
           <div className="flex gap-3 pt-2">
             <button
               type="button"
@@ -418,6 +440,7 @@ export default function Admin() {
       is_featured: form.is_featured,
       is_new_arrival: form.is_new_arrival,
       is_published: form.is_published,
+      is_out_of_stock: form.is_out_of_stock,
       crossed_out_price: form.crossed_out_price ? Number(form.crossed_out_price) : null,
     };
 
@@ -430,11 +453,11 @@ export default function Admin() {
           } as typeof payloadBase & { images: string[] })
         : payloadBase;
 
-    const save = async (payload: typeof payloadBase | (typeof payloadBase & { images: string[] })) => {
+    const save = async (payload: Record<string, unknown>) => {
       if (editProduct) {
-        return await supabase.from('products').update(payload).eq('id', editProduct.id);
+        return await supabase.from('products').update(payload as never).eq('id', editProduct.id);
       }
-      return await supabase.from('products').insert(payload);
+      return await supabase.from('products').insert(payload as never);
     };
 
     const { error } = await save(payloadWithImages);
@@ -560,6 +583,9 @@ export default function Admin() {
                           )}
                           {product.is_new_arrival && (
                             <span className="text-xs bg-gray-900/50 text-gray-400 px-2 py-0.5 rounded-full">New</span>
+                          )}
+                          {product.is_out_of_stock && (
+                            <span className="text-xs bg-red-900/50 text-red-400 px-2 py-0.5 rounded-full">Out of Stock</span>
                           )}
                           {!product.is_published && (
                             <span className="text-xs bg-gray-700 text-gray-400 px-2 py-0.5 rounded-full">Draft</span>
