@@ -430,7 +430,7 @@ export default function Admin() {
   };
 
   const handleSave = async (form: typeof emptyForm) => {
-    const payloadBase = {
+    const payloadWithOutOfStock = {
       name: form.name,
       price: Number(form.price),
       category: form.category,
@@ -444,14 +444,17 @@ export default function Admin() {
       crossed_out_price: form.crossed_out_price ? Number(form.crossed_out_price) : null,
     };
 
+    // Payload without is_out_of_stock — used as fallback if the column doesn't exist yet in DB
+    const payloadBase = (() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { is_out_of_stock: _oos, ...rest } = payloadWithOutOfStock;
+      return rest;
+    })();
+
     const maybeImages = (form.images || []).map(s => s.trim()).filter(Boolean);
-    const payloadWithImages =
-      maybeImages.length > 0
-        ? ({
-            ...payloadBase,
-            images: maybeImages,
-          } as typeof payloadBase & { images: string[] })
-        : payloadBase;
+
+    const withImages = (base: Record<string, unknown>) =>
+      maybeImages.length > 0 ? { ...base, images: maybeImages } : base;
 
     const save = async (payload: Record<string, unknown>) => {
       if (editProduct) {
@@ -460,27 +463,50 @@ export default function Admin() {
       return await supabase.from('products').insert(payload as never);
     };
 
-    const { error } = await save(payloadWithImages);
-    if (error) {
-      // If DB doesn't have an `images` column yet, fall back to single-image payload.
-      const msg = String((error as { message?: unknown }).message ?? '');
-      const looksLikeMissingImagesColumn =
-        'images' in (payloadWithImages as object) &&
-        // PostgREST can return several different strings depending on cache/state.
-        (/could not find the 'images' column/i.test(msg) ||
-          /schema cache/i.test(msg) ||
-          /column .*images/i.test(msg) ||
-          /images.*column/i.test(msg));
+    const isMissingColumn = (msg: string, col: string) =>
+      new RegExp(`could not find the '${col}' column|column .*${col}|${col}.*column|schema cache`, 'i').test(msg);
 
-      if (looksLikeMissingImagesColumn) {
-        const { error: retryError } = await save(payloadBase);
-        if (retryError) throw retryError;
-      } else {
-        throw error;
-      }
+    // First attempt: full payload with is_out_of_stock + images
+    const { error: err1 } = await save(withImages(payloadWithOutOfStock));
+
+    if (!err1) {
+      await fetchProducts();
+      setEditProduct(undefined);
+      return;
     }
-    await fetchProducts();
-    setEditProduct(undefined);
+
+    const msg1 = String((err1 as { message?: unknown }).message ?? '');
+
+    // Fallback 1: is_out_of_stock column missing — retry without it (but keep images)
+    if (isMissingColumn(msg1, 'is_out_of_stock')) {
+      const { error: err2 } = await save(withImages(payloadBase));
+      if (!err2) {
+        await fetchProducts();
+        setEditProduct(undefined);
+        return;
+      }
+      const msg2 = String((err2 as { message?: unknown }).message ?? '');
+      // Fallback 2: images column also missing
+      if (isMissingColumn(msg2, 'images')) {
+        const { error: err3 } = await save(payloadBase);
+        if (err3) throw err3;
+        await fetchProducts();
+        setEditProduct(undefined);
+        return;
+      }
+      throw err2;
+    }
+
+    // Fallback: images column missing — retry without images
+    if (isMissingColumn(msg1, 'images')) {
+      const { error: err2 } = await save(payloadWithOutOfStock);
+      if (err2) throw err2;
+      await fetchProducts();
+      setEditProduct(undefined);
+      return;
+    }
+
+    throw err1;
   };
 
   const handleDelete = async (id: string) => {
